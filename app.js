@@ -9,6 +9,7 @@ const carsRight = document.querySelectorAll('.car-right')
 
 
 let currentIndex = 76
+let timerId
 const widthSquare = 9
 
 function moveFrog(e){
@@ -42,6 +43,7 @@ function autoMoveLogs(){
     logsRight.forEach(logRight => moveLogRiht(logRight))
     carsLeft.forEach(carLeft => moveCarLeft(carLeft))
     carsRight.forEach(carRight => moveCarRiht(carRight))
+    lose()
 }
 
 function moveLogLeft(logLeft){
@@ -73,9 +75,6 @@ function moveLogLeft(logLeft){
              break
     }
 }
-
-setInterval(autoMoveLogs, 1000)
-
 
 function moveLogRiht(logRight){
 
@@ -142,7 +141,22 @@ function moveCarRiht(carRight){
         case carRight.classList.contains('c3'):
              carRight.classList.remove('c3')
              carRight.classList.add('c2')
-             break
-    
+             break    
     }
 }
+
+function lose(){
+    if(
+         squares[currentIndex].classList.contains('c1') || 
+         squares[currentIndex].classList.contains('l4') ||
+         squares[currentIndex].classList.contains('l5')
+         ){
+        resulttDisplay.textContent="You lose!"
+        alert("You lose!")
+        clearInterval(timerId)
+        squares[currentIndex].classList.remove('frog')
+        document.removeEventListener('keyup',moveFrog)
+    } 
+}
+
+timerId = setInterval(autoMoveLogs, 1000);
