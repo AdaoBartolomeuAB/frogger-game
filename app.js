@@ -44,6 +44,7 @@ function autoMoveLogs(){
     carsLeft.forEach(carLeft => moveCarLeft(carLeft))
     carsRight.forEach(carRight => moveCarRiht(carRight))
     lose()
+    win()
 }
 
 function moveLogLeft(logLeft){
@@ -157,6 +158,16 @@ function lose(){
         squares[currentIndex].classList.remove('frog')
         document.removeEventListener('keyup',moveFrog)
     } 
+}
+
+
+function win()  {
+    if(squares[currentIndex].classList.contains('ending-block')){
+        resulttDisplay.textContent="You Win!"
+        alert("You win!")
+        clearInterval(timerId)
+        document.removeEventListener('keyup',moveFrog)
+    }
 }
 
 timerId = setInterval(autoMoveLogs, 1000);
